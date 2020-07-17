@@ -19,5 +19,26 @@ class UI {
     <td><a href="#" class="delete">X</a></td>
   `;
     // Append row to list
+    list.appendChild(row);
+  }
+
+  showAlert(message, className) {
+    // Create Div
+    const div = document.createElement("div");
+    // Add classes
+    div.className = `alert ${className}`;
+    // Add Text
+    div.appendChild(document.createTextNode(message));
+    // Get Parent
+    const container = document.querySelector(".container");
+    // Get form
+    const form = document.querySelector("#book-form");
+    // Insert alert
+    container.insertBefore(div, form);
+
+    // Timeout after 3 seconds
+    setTimeout(() => {
+      document.querySelector(".alert").remove();
+    }, 3000);
   }
 }
