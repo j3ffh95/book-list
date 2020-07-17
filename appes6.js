@@ -13,31 +13,31 @@ class UI {
     const row = document.createElement("tr");
     // Insert cols
     row.innerHTML = `
-    <td>${book.title}</td>
-    <td>${book.author}</td>
-    <td>${book.isbn}</td>
-    <td><a href="#" class="delete">X</a></td>
-  `;
-    // Append row to list
+      <td>${book.title}</td>
+      <td>${book.author}</td>
+      <td>${book.isbn}</td>
+      <td><a href="#" class="delete">X<a></td>
+    `;
+
     list.appendChild(row);
   }
 
   showAlert(message, className) {
-    // Create Div
+    // Create div
     const div = document.createElement("div");
     // Add classes
     div.className = `alert ${className}`;
-    // Add Text
+    // Add text
     div.appendChild(document.createTextNode(message));
-    // Get Parent
+    // Get parent
     const container = document.querySelector(".container");
     // Get form
     const form = document.querySelector("#book-form");
     // Insert alert
     container.insertBefore(div, form);
 
-    // Timeout after 3 seconds
-    setTimeout(() => {
+    // Timeout after 3 sec
+    setTimeout(function () {
       document.querySelector(".alert").remove();
     }, 3000);
   }
@@ -71,8 +71,9 @@ class Store {
   static displayBooks() {
     const books = Store.getBooks();
 
-    books.forEach((book) => {
+    books.forEach(function (book) {
       const ui = new UI();
+
       // Add book to UI
       ui.addBookToList(book);
     });
@@ -86,8 +87,21 @@ class Store {
     localStorage.setItem("books", JSON.stringify(books));
   }
 
-  static removeBook() {}
+  static removeBook(isbn) {
+    const books = Store.getBooks();
+
+    books.forEach(function (book, index) {
+      if (book.isbn === isbn) {
+        books.splice(index, 1);
+      }
+    });
+
+    localStorage.setItem("books", JSON.stringify(books));
+  }
 }
+
+// DOM Load Event
+document.addEventListener("DOMContentLoaded", Store.displayBooks);
 
 // Event Listener for add book
 document.getElementById("book-form").addEventListener("submit", function (e) {
@@ -96,11 +110,13 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
     author = document.getElementById("author").value,
     isbn = document.getElementById("isbn").value;
 
-  // Instantiate a book
+  // Instantiate book
   const book = new Book(title, author, isbn);
 
-  // Instantiate a ui
+  // Instantiate UI
   const ui = new UI();
+
+  console.log(ui);
 
   // Validate
   if (title === "" || author === "" || isbn === "") {
@@ -110,7 +126,7 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
     // Add book to list
     ui.addBookToList(book);
 
-    // Add to Local Storage
+    // Add to LS
     Store.addBook(book);
 
     // Show success
@@ -127,10 +143,15 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
 document.getElementById("book-list").addEventListener("click", function (e) {
   // Instantiate UI
   const ui = new UI();
+
   // Delete book
   ui.deleteBook(e.target);
+
+  // Remove from LS
+  Store.removeBook(e.target.parentElement.previousElementSibling.textContent);
+
   // Show message
-  ui.showAlert("Book removed!", "success");
+  ui.showAlert("Book Removed!", "success");
 
   e.preventDefault();
 });
