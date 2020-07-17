@@ -47,4 +47,10 @@ class UI {
       target.parentElement.parentElement.remove();
     }
   }
+
+  clearFields() {
+    document.getElementById("title").value = "";
+    document.getElementById("author").value = "";
+    document.getElementById("isbn").value = "";
+  }
 }
