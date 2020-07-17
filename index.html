@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton-framework/1.1.1/skeleton.css"
-      integrity="sha512-bkbbtvfcVjmlzyq/v4GaSiyJY3DStQhRIbJY9D0qrheR4LgSNNzrEQcdkqdJQUbuYCkLkLCj5icLxdjxRQKsJg=="
-      crossorigin="anonymous"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.css"
     />
     <style>
       .success,
@@ -15,6 +13,14 @@
         color: white;
         padding: 5px;
         margin: 5px 0 15px;
+      }
+
+      .success {
+        background-color: green;
+      }
+
+      .error {
+        background-color: red;
       }
     </style>
     <title>Book List</title>
@@ -34,6 +40,9 @@
         <div>
           <label for="isbn">ISBN#</label>
           <input type="text" id="isbn" class="u-full-width" />
+        </div>
+        <div>
+          <input type="submit" value="Submit" class="u-full-width" />
         </div>
       </form>
       <table class="u-full-width">
