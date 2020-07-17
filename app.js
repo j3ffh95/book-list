@@ -43,6 +43,18 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
   // Instantiate a ui
   const ui = new UI();
 
+  // Validate
+  if (title === "" || author === "" || isbn === "") {
+    // Error alert
+    UI.showAlert("Please fill in all fields", "error");
+  } else {
+    // Add book to list
+    ui.addBookToList(book);
+
+    // Clear fields
+    ui.clearFields();
+  }
+
   // Add book to list
   ui.addBookToList(book);
 
