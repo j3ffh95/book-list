@@ -55,7 +55,18 @@ class UI {
   }
 }
 
-// Event Listeners
+// Local Storage Class
+class Store {
+  static getBooks() {}
+
+  static displayBooks() {}
+
+  static addBook() {}
+
+  static removeBook() {}
+}
+
+// Event Listener for add book
 document.getElementById("book-form").addEventListener("submit", function (e) {
   // Get form values
   const title = document.getElementById("title").value,
@@ -75,6 +86,9 @@ document.getElementById("book-form").addEventListener("submit", function (e) {
   } else {
     // Add book to list
     ui.addBookToList(book);
+
+    // Add to Local Storage
+    Store.addBook(book);
 
     // Show success
     ui.showAlert("Book Added!", "success");
